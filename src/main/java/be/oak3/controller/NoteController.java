@@ -1,11 +1,7 @@
 package be.oak3.controller;
 
 import java.util.List;
-import java.util.Locale;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,16 +19,17 @@ public class NoteController {
 
 	private NoteHibernateRepository repo;
 
-	@Autowired
-	private MessageSource source;
-	
+	// @Autowired
+	// private MessageSource source;
+
 	public NoteController(NoteHibernateRepository repo) {
 		this.repo = repo;
 	}
 
 	@GetMapping(value = "notes")
 	public List<Note> showAll() {
-		//System.out.println("Source= " + source.getMessage("hello", new String[] {"Awesome"}, Locale.getDefault()));
+		// System.out.println("Source= " + source.getMessage("hello", new String[]
+		// {"Awesome"}, Locale.getDefault()));
 		return repo.findAll();
 	}
 
@@ -40,14 +37,14 @@ public class NoteController {
 	public void delete(@PathVariable Long id) {
 		repo.delete(id);
 	}
-	
+
 	@RequestMapping(value = "notes", method = RequestMethod.POST)
 	public Note create(@RequestBody String text) {
-		Note note= new Note();
+		Note note = new Note();
 		note.setText(text);
 		return repo.saveAndFlush(note);
 	}
-	
+
 	@RequestMapping(value = "notes", method = RequestMethod.DELETE)
 	public void deleteAll() {
 		repo.deleteAll();
