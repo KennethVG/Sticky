@@ -1,9 +1,12 @@
+var local = "http://localhost:8080/";
+var heroku = "https://safe-dawn-99683.herokuapp.com/"
+
 $(function() {
 	// STICKIES TONEN:
 	var sticky;
 	var mydata;
 	var achtergrond = document.getElementById("achtergrond");
-	$.get("http://localhost:8080/notes", function(data, status) {
+	$.get(heroku + "notes", function(data, status) {
 		mydata = data;
 		if (status == 'success') {
 			$.each(data, function(index, value) {
@@ -26,7 +29,7 @@ $(function() {
 		} else {
 			$.ajax({
 				method : "post",
-				url : "http://localhost:8080/notes/",
+				url : heroku + "notes/",
 				data : invoer,
 				contentType : "application/json",
 				success : function(result) {
@@ -46,7 +49,7 @@ $(function() {
 		console.log("Mydata= " + mydata[mijnSticky.id].id);
 		$.ajax({
 			method : "delete",
-			url : "http://localhost:8080/notes/" + mydata[mijnSticky.id].id,
+			url : heroku + "notes/" + mydata[mijnSticky.id].id,
 			contentType : "application/json",
 			success : function(result) {
 				achtergrond.removeChild(mijnSticky);
@@ -56,13 +59,13 @@ $(function() {
 			}
 		});
 	});
-	
+
 	// ALLE STICKIES VERWIJDEREN
 	$("#button2").click(function(e) {
-		
+
 		$.ajax({
 			method : "delete",
-			url : "http://localhost:8080/notes/",
+			url : heroku + "notes/",
 			contentType : "application/json",
 			success : function(result) {
 				console.log("Alles verwijderd!");
@@ -72,6 +75,6 @@ $(function() {
 				alert("Deleten is niet gelukt: " + msg);
 			}
 		});
-		
+
 	});
 });
