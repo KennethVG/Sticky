@@ -22,9 +22,6 @@ import be.oak3.repository.NoteHibernateRepository;
 public class NoteController {
 
 	private NoteHibernateRepository repo;
-	
-	@Value("${hello}")
-	private String hello;
 
 	@Autowired
 	private MessageSource source;
@@ -35,8 +32,7 @@ public class NoteController {
 
 	@GetMapping(value = "notes")
 	public List<Note> showAll() {
-		System.out.println("Hello= " + hello);
-		System.out.println("Source= " + source.getMessage("hello", new String[] {"Awesome"}, Locale.getDefault()));
+		//System.out.println("Source= " + source.getMessage("hello", new String[] {"Awesome"}, Locale.getDefault()));
 		return repo.findAll();
 	}
 
